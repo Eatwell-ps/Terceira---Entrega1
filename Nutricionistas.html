@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suporte - Nutricionistas e Especialistas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="JavaIndex.js">
+  <style>
+   
+    
+    header nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; }
+
+    .container { text-align: center; padding: 20px; }
+    h2 { margin-top: 10px; }
+    p { color: #333; max-width: 400px; margin: 10px auto; }
+
+    .image-container img { width: 250px; margin-top: 20px; }
+
+    .chat-container {
+      max-width: 500px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    .messages {
+      max-height: 250px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background: #f9f9f9;
+      margin-bottom: 10px;
+    }
+    .msg {
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      display: inline-block;
+      max-width: 80%;
+    }
+    .user { background: #d4f7c5; align-self: flex-end; }
+    .bot { background: #e0e0e0; }
+
+    .input-container { display: flex; gap: 10px; }
+    .input-container input {
+      flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #ccc;
+    }
+    .input-container button {
+      padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 6px;
+      cursor: pointer; font-weight: bold;
+    }
+    .input-container button:hover { background: #1f7a36; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍏</span>
+      <h1>EatWell</h1>
+    </div>
+    <nav class="nav">
+      <a href="Index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+      <a href="Nutricionistas.html" class="nav-link"><i class="fas fa-tags"></i> Contate os Profissionais</a>
+      <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+    </nav>
+    <div class="header-actions">
+  <a href="Notificações.html" class="btn-icon" aria-label="Notificações">
+    <i class="fas fa-bell"></i>
+    <span class="badge">1</span>
+  </a>
+  <a href="PersonalizaçãoDeInterface.html" class="btn-icon" aria-label="Perfil">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="Historico.html" class="btn-menu" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </a>
+</div>
+  </header>
+
+<div class="container">
+  <h2>Suporte</h2>
+  <div class="image-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="Nutricionista">
+  </div>
+  <h3>Nutricionistas e especialistas</h3>
+  <p>Conecte-se com profissionais para obter suporte e orientação personalizada.</p>
+</div>
+
+<div class="chat-container">
+  <div class="messages" id="chatBox"></div>
+
+  <div class="input-container">
+    <input type="text" id="userMessage" placeholder="Digite sua dúvida...">
+    <button onclick="enviarMensagem()">Enviar</button>
+  </div>
+</div>
+
+<script>
+  let mensagens = JSON.parse(localStorage.getItem("mensagensSuporte")) || [];
+
+  function renderizarMensagens() {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.innerHTML = "";
+    mensagens.forEach(m => {
+      const div = document.createElement('div');
+      div.className = msg; $;{m.tipo};
+      div.textContent = m.texto;
+      chatBox.appendChild(div);
+
+
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function enviarMensagem() {
+    const input = document.getElementById('userMessage');
+    const texto = input.value.trim();
+    if (!texto) return;
+
+    mensagens.push({ tipo: 'user', texto });
+    localStorage.setItem("mensagensSuporte", JSON.stringify(mensagens));
+    renderizarMensagens();
+
+    input.value = "";
+
+ 
+    setTimeout(() => {
+      const resposta = "Obrigado por entrar em contato! Um nutricionista responderá em breve.";
+      mensagens.push({ tipo: 'bot', texto: resposta });
+      localStorage.setItem("mensagensSuporte", JSON.stringify(mensagens));
+      renderizarMensagens();
+    }, 1000);
+  }
+
+  renderizarMensagens();
+</script>
+
+</body>
+</html>

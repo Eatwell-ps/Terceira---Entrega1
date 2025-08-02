@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Atividades</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="stylesheet" href="JavaIndex.js">
+    
+    
+    <style>
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #444;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        
+        .activity-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        main{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍏</span>
+      <h1>EatWell</h1>
+    </div>
+    <nav class="nav">
+      <a href="Index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+      <a href="Nutricionistas.html" class="nav-link"><i class="fas fa-tags"></i> Contate os Profissionais</a>
+      <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+    </nav>
+    <div class="header-actions">
+  <a href="Notificações.html" class="btn-icon" aria-label="Notificações">
+    <i class="fas fa-bell"></i>
+    <span class="badge">1</span>
+  </a>
+  <a href="PersonalizaçãoDeInterface.html" class="btn-icon" aria-label="Perfil">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="Historico.html" class="btn-menu" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </a>
+</div>
+  </header>
+    <main>
+        <div class="container">
+            <h2>Histórico de atividades</h2>
+            
+            <div class="activity-item">
+                <input type="checkbox" id="activity1" checked>
+                <label for="activity1">Alerta de hidratação concluído</label>
+            </div>
+            
+            <div class="activity-item">
+                <input type="checkbox" id="activity2" checked>
+                <label for="activity2">Personalização da interface atualizada</label>
+            </div>
+            
+            <div class="activity-item">
+                <input type="checkbox" id="activity3">
+                <label for="activity3">Relatório diário enviado</label>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

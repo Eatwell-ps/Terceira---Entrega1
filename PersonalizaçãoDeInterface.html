@@ -1,0 +1,160 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalização da Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="JavaIndex.js">
+
+
+
+    <style>
+      
+
+        header {
+            margin-bottom: 30px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #444;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .option-group {
+            margin-bottom: 20px;
+        }
+        
+        .option-group h3 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .theme-option {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ddd;
+        }
+        
+        .theme-option.selected {
+            border-color: #2196f3;
+        }
+        
+        #theme1 { background-color: #f8f9fa; }
+        #theme2 { background-color: #e3f2fd; }
+        #theme3 { background-color: #fff8e1; }
+        #theme4 { background-color: #e8f5e9; }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+   
+<header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍏</span>
+      <h1>EatWell</h1>
+    </div>
+    <nav class="nav">
+      <a href="Index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+      <a href="Nutricionistas.html" class="nav-link"><i class="fas fa-tags"></i> Contate os Profissionais</a>
+      <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+    </nav>
+    <div class="header-actions">
+  <a href="Notificações.html" class="btn-icon" aria-label="Notificações">
+    <i class="fas fa-bell"></i>
+    <span class="badge">1</span>
+  </a>
+  <a href="PersonalizaçãoDeInterface.html" class="btn-icon" aria-label="Perfil">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="Historico.html" class="btn-menu" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </a>
+  </div>
+</header>
+
+
+        <div class="container">
+            <h2>Personalização da Interface</h2>
+            
+            <div class="option-group">
+                <h3>Tema de cores</h3>
+                <div class="theme-option selected" id="theme1"></div>
+                <div class="theme-option" id="theme2"></div>
+                <div class="theme-option" id="theme3"></div>
+                <div class="theme-option" id="theme4"></div>
+            </div>
+            
+            <div class="option-group">
+                <h3>Tamanho da fonte</h3>
+                <select>
+                    <option>Pequeno</option>
+                    <option selected>Médio</option>
+                    <option>Grande</option>
+                </select>
+            </div>
+            
+            <div class="option-group">
+                <h3>Organização do menu</h3>
+                <input type="checkbox" id="compact-menu" checked>
+                <label for="compact-menu">Menu compacto</label>
+            </div>
+            
+            <button>Salvar preferências</button>
+        </div>
+    </main>
+
+    <script>
+       
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.theme-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>

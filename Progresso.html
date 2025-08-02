@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráficos Interativos - Consumo e Massa Muscular</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="JavaIndex.js">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; text-align: center; margin: 0; }
+    h2 { margin: 20px 0; }
+    .section { background: white; padding: 20px; margin: 20px auto; border-radius: 12px;
+               box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 500px; }
+    input { padding: 8px; margin: 5px; width: 100px; border-radius: 6px; border: 1px solid #ccc; }
+    button { margin-top: 10px; padding: 10px 15px; background: #28a745; color: white; 
+             border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    button:hover { background: #1f7a36; }
+    .chart-container { max-width: 500px; margin: 30px auto; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍏</span>
+      <h1>EatWell</h1>
+    </div>
+    <nav class="nav">
+      <a href="Index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+      <a href="Nutricionistas.html" class="nav-link"><i class="fas fa-tags"></i> Contate os Profissionais</a>
+      <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+    </nav>
+    <div class="header-actions">
+  <a href="Notificações.html" class="btn-icon" aria-label="Notificações">
+    <i class="fas fa-bell"></i>
+    <span class="badge">1</span>
+  </a>
+  <a href="PersonalizaçãoDeInterface.html" class="btn-icon" aria-label="Perfil">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="Historico.html" class="btn-menu" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </a>
+</div>
+  </header>
+
+
+<h2>Gráficos Interativos de Saúde</h2>
+
+<div class="section">
+  <h3>Adicionar Consumo Alimentar (g)</h3>
+  <input type="number" id="proteinas" placeholder="Proteínas">
+  <input type="number" id="carboidratos" placeholder="Carboidratos">
+  <input type="number" id="gorduras" placeholder="Gorduras">
+  <button onclick="adicionarConsumo()">Adicionar Consumo</button>
+</div>
+
+
+<div class="section">
+  <h3>Adicionar Massa Muscular (kg)</h3>
+  <input type="text" id="dataPeso" placeholder="Data (ex: 01/08)">
+  <input type="number" id="peso" placeholder="Peso">
+  <button onclick="adicionarPeso()">Adicionar Peso</button>
+</div>
+
+
+<div class="chart-container">
+  <h3>Distribuição de Consumo</h3>
+  <canvas id="consumoChart"></canvas>
+</div>
+
+<div class="chart-container">
+  <h3>Evolução de Massa Muscular</h3>
+  <canvas id="musculoChart"></canvas>
+</div>
+
+<script>
+ 
+  let consumo = JSON.parse(localStorage.getItem("consumo")) || {proteinas:0, carboidratos:0, gorduras:0};
+  let pesos = JSON.parse(localStorage.getItem("pesos")) || [];
+
+ 
+  const ctx1 = document.getElementById('consumoChart').getContext('2d');
+  const consumoChart = new Chart(ctx1, {
+    type: 'pie',
+    data: {
+      labels: ['Proteínas', 'Carboidratos', 'Gorduras'],
+      datasets: [{
+        data: [consumo.proteinas, consumo.carboidratos, consumo.gorduras],
+        backgroundColor: ['#ff4d4d', '#ffc107', '#28a745']
+      }]
+    }
+  });
+
+  
+  const ctx2 = document.getElementById('musculoChart').getContext('2d');
+  const musculoChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: pesos.map(p => p.data),
+      datasets: [{
+        label: 'Massa Muscular (kg)',
+        data: pesos.map(p => p.peso),
+        borderColor: '#007bff',
+        backgroundColor: 'rgba(0,123,255,0.2)',
+        tension: 0.3,
+        fill: true,
+        pointRadius: 4
+      }]
+    }
+  });
+
+  function adicionarConsumo() {
+    const p = parseInt(document.getElementById('proteinas').value) || 0;
+    const c = parseInt(document.getElementById('carboidratos').value) || 0;
+    const g = parseInt(document.getElementById('gorduras').value) || 0;
+
+    consumo.proteinas += p;
+    consumo.carboidratos += c;
+    consumo.gorduras += g;
+
+    localStorage.setItem("consumo", JSON.stringify(consumo));
+    atualizarGraficoConsumo();
+
+    document.getElementById('proteinas').value = "";
+    document.getElementById('carboidratos').value = "";
+    document.getElementById('gorduras').value = "";
+  }
+
+  function atualizarGraficoConsumo() {
+    consumoChart.data.datasets[0].data = [consumo.proteinas, consumo.carboidratos, consumo.gorduras];
+    consumoChart.update();
+  }
+
+  function adicionarPeso() {
+    const data = document.getElementById('dataPeso').value.trim();
+    const peso = parseFloat(document.getElementById('peso').value);
+
+    if(!data || isNaN(peso)) return alert("Preencha a data e o peso!");
+
+    pesos.push({ data, peso });
+    localStorage.setItem("pesos", JSON.stringify(pesos));
+
+    atualizarGraficoMusculo();
+
+    document.getElementById('dataPeso').value = "";
+    document.getElementById('peso').value = "";
+  }
+
+  function atualizarGraficoMusculo() {
+    musculoChart.data.labels = pesos.map(p => p.data);
+    musculoChart.data.datasets[0].data = pesos.map(p => p.peso);
+    musculoChart.update();
+  }
+</script>
+
+</body>
+</html>

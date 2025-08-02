@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saúde Diária - Acompanhamento Nutricional</title>
+  <meta name="description" content="Acompanhe suas refeições diárias e receba lembretes saudáveis">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="Style.css" />
+  <link rel="stylesheet" href="JavaIndex.js">
+</head>
+<body>
+  
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🍏</span>
+      <h1>EatWell</h1>
+    </div>
+    <nav class="nav">
+      <a href="Index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+      <a href="Nutricionistas.html" class="nav-link"><i class="fas fa-tags"></i> Contate os Profissionais</a>
+      <a href="#" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a>
+    </nav>
+    <div class="header-actions">
+  <a href="Notificações.html" class="btn-icon" aria-label="Notificações">
+    <i class="fas fa-bell"></i>
+    <span class="badge">1</span>
+  </a>
+  <a href="PersonalizaçãoDeInterface.html" class="btn-icon" aria-label="Perfil">
+    <i class="fas fa-user"></i>
+  </a>
+  <a href="Historico.html" class="btn-menu" aria-label="Menu">
+    <i class="fas fa-bars"></i>
+  </a>
+</div>
+  </header>
+
+  <main class="main-content">
+    <section class="daily-tasks">
+      <div class="section-header">
+        <h2 class="section-title">Tarefa Diária Personalizada</h2>
+        <button class="btn btn-primary" id="add-task">
+          <i class="fas fa-plus"></i> Adicionar Tarefa
+        </button>
+      </div>
+      
+      <div class="task-list">
+        <div class="task-card meal-card">
+          <div class="task-header">
+            <h3><i class="fas fa-mug-hot"></i> Café da Manhã</h3>
+            <label class="checkbox-container">
+              <input type="checkbox" id="breakfast-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="meal-suggestion" id="breakfast-suggestion"></p>
+          <div class="task-actions">
+            <button class="btn-icon small"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon small"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+        
+        <div class="task-card meal-card completed">
+          <div class="task-header">
+            <h3><i class="fas fa-utensils"></i> Almoço</h3>
+            <label class="checkbox-container">
+              <input type="checkbox" id="lunch-check" checked>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="meal-suggestion" id="lunch-suggestion"></p>
+          <div class="task-actions">
+            <button class="btn-icon small"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon small"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+        
+        <div class="task-card meal-card">
+          <div class="task-header">
+            <h3><i class="fas fa-moon"></i> Jantar</h3>
+            <label class="checkbox-container">
+              <input type="checkbox" id="dinner-check">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <p class="meal-suggestion" id="dinner-suggestion"></p>
+          <div class="task-actions">
+            <button class="btn-icon small"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon small"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="nutrition-tips">
+      <h3 class="tips-title"><i class="fas fa-lightbulb"></i> Sugestões de Alimentos</h3>
+      <p class="tip-content" id="nutrition-tip">Carregando...</p>
+    </section>
+  </main>
+
+<section class="progress-section">
+  <h2><i class="fas fa-chart-line"></i> Meu Progresso</h2>
+  
+  <div class="progress-tabs">
+    <button class="tab active">Peso</button>
+    <button class="tab">Água</button>
+    <button class="tab">Refeições</button>
+  </div>
+  
+  <div class="water-tracker">
+    <div class="water-glass">
+      <i class="fas fa-glass-water"></i>
+      <span>250ml</span>
+    </div>
+    <p>Total hoje: <strong>0ml</strong></p>
+  </div>
+  
+  <a href="Progresso.html" class="btn-register">
+    <i  class="fas fa-plus" ></i> Conferir e Editar
+  </a>
+</section>
+
+<div class="separation"></div>
+
+
+<section class="recipes-section">
+  <h2><i class="fas fa-utensils"></i> Receitas Saudáveis</h2>
+  
+  <div class="filters">
+    <button class="filter active">Todos</button>
+    <button class="filter">Low Carb</button>
+    <button class="filter">Sem Glúten</button>
+    <button class="filter">Proteicas</button>
+  </div>
+  
+
+</section>
+
+
+<section class="food-search">
+  <h2><i class="fas fa-search"></i> Busca de Alimentos por Dieta</h2>
+  
+  <div class="search-container">
+    <input type="text" id="food-search-input" placeholder="Ex: frango, arroz, brócolis...">
+    <select id="diet-type-select">
+      <option value="">Todas as Dietas</option>
+      <option value="low-carb">Low Carb</option>
+      <option value="keto">Keto</option>
+      <option value="vegetariana">Vegetariana</option>
+      <option value="vegana">Vegana</option>
+      <option value="sem-gluten">Sem Glúten</option>
+      <option value="diabeticos">Para Diabéticos</option>
+    </select>
+    <button id="search-food-btn" class="search-btn">
+      <i class="fas fa-search"></i> Buscar
+    </button>
+  </div>
+  
+  <div class="search-results" id="food-results">
+
+    <div class="empty-state">
+      <i class="fas fa-utensils"></i>
+      <p>Digite um alimento e selecione um tipo de dieta para buscar</p>
+    </div>
+  </div>
+</section>
+
+<div class="substitution-container">
+  <section class="food-substitution">
+    <h2><i class="fas fa-exchange-alt"></i> Substituição de Alimentos</h2>
+    
+    <div class="substitution-search">
+      <input type="text" id="foodInput" placeholder="Digite um alimento...">
+      <button onclick="substituir()" class="substitution-btn">
+        <i class="fas fa-search"></i> Buscar Substituição
+      </button>
+    </div>
+    
+    <div class="substitution-result" id="result"></div>
+  </section>
+</div>
+
+<style>
+
+
+.substitution-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.food-substitution {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.food-substitution h2 {
+  color: #2E7D32;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.substitution-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.substitution-search input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.substitution-btn {
+  padding: 12px 20px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.substitution-btn:hover {
+  background: #3e8e41;
+}
+
+.substitution-result {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  min-height: 50px;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+}
+  </style>
+
+  <script>
+
+    const substituicoes = {
+  "arroz branco": "arroz integral ou quinoa",
+  "pão francês": "pão integral ou tapioca",
+  "batata frita": "batata assada ou mandioca cozida",
+  "refrigerante": "água com gás e limão ou chá gelado sem açúcar",
+  "sorvete": "frozen iogurte natural com frutas",
+  "hambúrguer": "frango grelhado ou hambúrguer de grão-de-bico",
+  "salsicha": "peito de frango desfiado ou ovos cozidos",
+  "chocolate ao leite": "chocolate 70% cacau ou frutas secas",
+};
+
+function substituir() {
+  const input = document.getElementById("foodInput").value.toLowerCase();
+  const resultDiv = document.getElementById("result");
+  
+  if (input.trim() === "") {
+    resultDiv.innerHTML = "<p>Por favor, digite um alimento para buscar substituições.</p>";
+    return;
+  }
+  
+  if (substituicoes[input]) {
+    resultDiv.innerHTML = `
+      <p><strong>Substituição para ${input}:</strong></p>
+      <p>${substituicoes[input]}</p>
+    `;
+  } else {
+    resultDiv.innerHTML = `
+      <p>Não encontramos uma substituição específica para "${input}".</p>
+      <p>Sugerimos optar por versões integrais, assadas ou cozidas, e sempre que possível incluir mais vegetais.</p>
+    `;
+  }
+}
+  </script>
+
+<div class="meal-planning-container">
+  <section class="meal-planning-section">
+    <h2><i class="fas fa-utensils"></i> Planejamento de Refeição</h2>
+    
+    <div class="planning-menu">
+      <div class="planning-btn btn-tarefas" onclick="openScreen('tarefas')">
+        <i class="fas fa-tasks"></i>
+        <span>Tarefas</span>
+      </div>
+      <div class="planning-btn btn-recompensas" onclick="openScreen('recompensas')">
+        <i class="fas fa-medal"></i>
+        <span>Recompensas</span>
+      </div>
+      <div class="planning-btn btn-treino" onclick="openScreen('treino')">
+        <i class="fas fa-dumbbell"></i>
+        <span>Treino</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+
+  .meal-planning-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+  }
+
+
+  .meal-planning-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .meal-planning-section h2 {
+    color: #2E7D32;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .planning-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .planning-btn {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    border: 2px solid transparent;
+  }
+
+  .planning-btn i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  .planning-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+
+  .btn-tarefas { 
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    color: #0d47a1;
+  }
+  
+  .btn-recompensas { 
+    background-color: #fff8e1;
+    border-color: #ffc107;
+    color: #ff6f00;
+  }
+  
+  .btn-treino { 
+    background-color: #e8f5e9;
+    border-color: #4caf50;
+    color: #2e7d32;
+  }
+
+
+  .planning-screen {
+    display: none;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: left;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+  
+  .back-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background: #3e8e41;
+  }
+
+  @media (max-width: 768px) {
+    .planning-menu {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .planning-btn {
+      width: 100%;
+      max-width: 250px;
+      height: 120px;
+    }
+  }
+</style>
+
+<script>
+  function openScreen(screenId) {
+ 
+    document.querySelectorAll('.planning-btn').forEach(btn => btn.style.display = 'none');
+   
+    let screen = document.getElementById(screenId + '-screen');
+    if (!screen) {
+      screen = document.createElement('div');
+      screen.id = screenId + '-screen';
+      screen.className = 'planning-screen';
+      
+      let content = '';
+      let backButton = '<button class="back-btn" onclick="closeScreen()">Voltar</button>';
+      
+      if (screenId === 'tarefas') {
+        content = '<h3>Lista de Tarefas</h3><p>Adicione suas refeições e tarefas do dia.</p>';
+      } else if (screenId === 'recompensas') {
+        content = '<h3>Sistema de Recompensas</h3><p>Ganhe pontos e troque por benefícios.</p>';
+      } else if (screenId === 'treino') {
+        content = '<h3>Plano de Treino</h3><p>Veja seus treinos e conquistas.</p>';
+      }
+      
+      screen.innerHTML = content + backButton;
+      document.querySelector('.meal-planning-section').appendChild(screen);
+    }
+    
+    screen.style.display = 'block';
+  }
+
+  function closeScreen() {
+  
+    document.querySelectorAll('.planning-screen').forEach(screen => {
+      screen.style.display = 'none';
+    });
+
+    document.querySelectorAll('.planning-btn').forEach(btn => btn.style.display = 'flex');
+  }
+</script>
+
+
+<div class="sustainability-container">
+  <section class="sustainability-section">
+    <h2><i class="fas fa-leaf"></i> Análise de Sustentabilidade</h2>
+    
+    <div class="sustainability-search">
+      <input type="text" id="sustainability-input" placeholder="Digite um alimento (ex: carne, soja, banana)...">
+      <button onclick="analisarSustentabilidade()" class="sustainability-btn">
+        <i class="fas fa-search"></i> Analisar
+      </button>
+    </div>
+    
+    <div class="sustainability-result" id="sustainability-result">
+      <div class="empty-state">
+        <i class="fas fa-seedling"></i>
+        <p>Digite um alimento para analisar seu impacto ambiental</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+
+  .sustainability-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 1200px;
+  }
+
+
+  .sustainability-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .sustainability-section h2 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .sustainability-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  #sustainability-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .sustainability-btn {
+    padding: 12px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .sustainability-btn:hover {
+    background: #3e8e41;
+  }
+
+  .sustainability-result {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    min-height: 100px;
+    text-align: left;
+  }
+
+  .sustainability-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .metric-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2E7D32;
+    margin: 5px 0;
+  }
+
+  .metric-label {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .sustainability-tip {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e8f5e9;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .sustainability-search {
+      flex-direction: column;
+    }
+    
+    .sustainability-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+
+  const impactoAmbiental = {
+    "carne bovina": { co2: 60, agua: 15400, terra: 164, dica: "Considere reduzir o consumo ou optar por carne de frango que tem menor impacto" },
+    "frango": { co2: 6, agua: 3900, terra: 7.1, dica: "Prefira frango caipira ou orgânico para menor impacto" },
+    "peixe": { co2: 5, agua: 3800, terra: 3.7, dica: "Escolha peixes de pesca sustentável" },
+    "porco": { co2: 7, agua: 4800, terra: 8.4, dica: "Consuma com moderação" },
+    "ovo": { co2: 4.5, agua: 3300, terra: 5.7, dica: "Ótima fonte de proteína com baixo impacto" },
+    "leite": { co2: 3, agua: 1000, terra: 8.9, dica: "Prefira leite orgânico ou de produção local" },
+    "queijo": { co2: 21, agua: 5000, terra: 41, dica: "Consuma com moderação devido ao alto impacto" },
+    "arroz": { co2: 4, agua: 2500, terra: 2.7, dica: "Prefira arroz orgânico ou de produção sustentável" },
+    "trigo": { co2: 1.4, agua: 1300, terra: 1.4, dica: "Baixo impacto ambiental" },
+    "milho": { co2: 1, agua: 900, terra: 1.2, dica: "Boa opção sustentável" },
+    "batata": { co2: 0.2, agua: 290, terra: 0.4, dica: "Excelente opção de baixo impacto" },
+    "soja": { co2: 2, agua: 1800, terra: 3.5, dica: "Prefira soja não transgênica e de produção local" },
+    "banana": { co2: 0.7, agua: 790, terra: 1.1, dica: "Frutas geralmente têm baixo impacto ambiental" },
+    "maçã": { co2: 0.3, agua: 700, terra: 0.7, dica: "Ótima escolha sustentável" },
+    "café": { co2: 17, agua: 18000, terra: 12, dica: "Escolha café com certificação sustentável" },
+    "chocolate": { co2: 19, agua: 17000, terra: 26, dica: "Consuma com moderação e prefira marcas sustentáveis" }
+  };
+
+  function analisarSustentabilidade() {
+    const input = document.getElementById("sustainability-input").value.toLowerCase();
+    const resultDiv = document.getElementById("sustainability-result");
+    
+    if (input.trim() === "") {
+      resultDiv.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-exclamation-circle"></i>
+          <p>Por favor, digite um alimento para analisar</p>
+        </div>
+      `;
+      return;
+    }
+    
+    const alimento = Object.keys(impactoAmbiental).find(key => input.includes(key));
+    
+    if (alimento) {
+      const dados = impactoAmbiental[alimento];
+      resultDiv.innerHTML = `
+        <h3>Análise para: <span style="color: #2E7D32">${alimento}</span></h3>
+        
+        <div class="sustainability-metrics">
+          <div class="metric-card">
+            <div class="metric-value">${dados.co2} kg</div>
+            <div class="metric-label">CO2 por kg</div>
+            <small>(Emissões de carbono)</small>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-value">${dados.agua} L</div>
+            <div class="metric-label">Água por kg</div>
+            <small>(Uso hídrico)</small>
+          </div>
+          
+          <div class="metric-card">
+            <div class="metric-value">${dados.terra} m²</div>
+            <div class="metric-label">Terra por kg</div>
+            <small>(Uso do solo)</small>
+          </div>
+        </div>
+        
+        <div class="sustainability-tip">
+          <strong><i class="fas fa-lightbulb"></i> Dica Sustentável:</strong>
+          <p>${dados.dica}</p>
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-question-circle"></i>
+          <p>Não encontramos dados para "${input}".</p>
+          <p>Tente alimentos como: carne bovina, frango, peixe, ovo, leite, arroz, soja, banana, etc.</p>
+        </div>
+      `;
+    }
+  }
+</script>
+
+
+
+<div class="nutrition-center">
+  <div class="nutrition-card">
+    <h2>Calculadora Nutricional</h2>
+    
+    <table class="nutrition-table">
+      <tr>
+        <td>Sexo:</td>
+        <td>
+          <select class="nutrition-select">
+            <option>Masculino</option>
+            <option>Feminino</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Idade:</td>
+        <td><input type="text" class="nutrition-input" placeholder="anos"></td>
+      </tr>
+      <tr>
+        <td>Peso:</td>
+        <td><input type="text" class="nutrition-input" placeholder="kg"></td>
+      </tr>
+      <tr>
+        <td>Altura:</td>
+        <td><input type="text" class="nutrition-input" placeholder="cm"></td>
+      </tr>
+      <tr>
+        <td>Atividade:</td>
+        <td>
+          <select class="nutrition-select">
+            <option>Sedentário</option>
+            <option>Levemente ativo</option>
+            <option>Ativo</option>
+            <option>Muito ativo</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    
+    <button class="nutrition-btn">Calcular</button>
+    
+    <div class="nutrition-tip">
+      <p><em>Carregendo Resultado...</em></p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+    <p>© 2025 EatWell. Todos os direitos reservados.</p>
+  </footer>
+
+ <script>
+
+    const mensagens = [
+      "💧 Hora de beber água!",
+      "🍎 Que tal um lanche saudável?",
+      "🥦 Hora de se alimentar bem!",
+      "🚰 Hidratação é saúde!"
+    ];
+
+ 
+    function enviarNotificacao() {
+      const mensagem = mensagens[Math.floor(Math.random() * mensagens.length)];
+      new Notification("Lembrete de Saúde", {
+        body: mensagem,
+        icon: "https://cdn-icons-png.flaticon.com/512/728/728093.png" 
+      });
+    }
+
+   
+    function iniciarLembretes() {
+      if (!("Notification" in window)) {
+        alert("Este navegador não suporta notificações do sistema.");
+        return;
+      }
+
+      Notification.requestPermission().then(function(permission) {
+        if (permission === "granted") {
+      
+          enviarNotificacao();
+
+          setInterval(enviarNotificacao, 600000);
+        } else {
+          alert("Permissão negada. Ative as notificações no navegador.");
+        }
+      });
+    }
+
+
+    iniciarLembretes();
+  </script>
+</body>
+</html>
