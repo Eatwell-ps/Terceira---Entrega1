@@ -1,0 +1,66 @@
+<?php
+namespace App\Repositories;
+
+use App\Core\Repository;
+
+class ClienteRepository extends Repository {
+    public function __construct() {
+        parent::__construct('clientes');
+    }
+
+    public function create($data) {
+        $query = "INSERT INTO clientes (nome, email, telefone, data_nascimento, peso, altura, objetivo, restricoes) 
+                  VALUES (:nome, :email, :telefone, :data_nascimento, :peso, :altura, :objetivo, :restricoes)";
+        
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([
+            ':nome' => $data['nome'],
+            ':email' => $data['email'],
+            ':telefone' => $data['telefone'],
+            ':data_nascimento' => $data['data_nascimento'],
+            ':peso' => $data['peso'],
+            ':altura' => $data['altura'],
+            ':objetivo' => $data['objetivo'],
+            ':restricoes' => $data['restricoes']
+        ]);
+    }
+
+    public function update($id, $data) {
+        $query = "UPDATE clientes SET 
+                  nome = :nome, 
+                  email = :email, 
+                  telefone = :telefone, 
+                  data_nascimento = :data_nascimento, 
+                  peso = :peso, 
+                  altura = :altura, 
+                  objetivo = :objetivo, 
+                  restricoes = :restricoes 
+                  WHERE id = :id";
+        
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([
+            ':nome' => $data['nome'],
+            ':email' => $data['email'],
+            ':telefone' => $data['telefone'],
+            ':data_nascimento' => $data['data_nascimento'],
+            ':peso' => $data['peso'],
+            ':altura' => $data['altura'],
+            ':objetivo' => $data['objetivo'],
+            ':restricoes' => $data['restricoes'],
+            ':id' => $id
+        ]);
+    }
+
+    public function search($term) {
+        $query = "SELECT * FROM clientes 
+                  WHERE nome LIKE :term 
+                  OR email LIKE :term 
+                  OR objetivo LIKE :term";
+        
+        $stmt = $this->db->prepare($query);
+        $searchTerm = "%{$term}%";
+        $stmt->bindParam(':term', $searchTerm);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+}
